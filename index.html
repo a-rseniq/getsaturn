@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaturnBypasser</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        #background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #888;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #1aafd4, #0277e6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #049bff;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .info-section {
+            padding: 4rem 2rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px) rotateX(10deg);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00ccff;
+        }
+
+        .info-card p {
+            color: #00d9ff;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .code-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .code-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .copy-btn {
+            padding: 0.5rem 1rem;
+            background: #ffffff20;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #ffffff40;
+        }
+
+        .code-block {
+            background: #000;
+            border-radius: 10px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            line-height: 1.5;
+            color: #fff;
+            white-space: pre-wrap;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="background-canvas"></canvas>
+    
+    <nav class="navbar">
+        <div class="logo">SaturnBypasser</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#script">Script</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1 class="floating">SaturnBypasser v1.1</h1>
+        <p>Limitations? pfft</p>
+    </section>
+
+    <section class="info-section" id="features">
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🛠️ Tabs</h3>
+                <p>• Sentences<br>
+                   • Toxic<br>
+                   • Homophobic<br>
+                   • Woman<br>
+                   • Racist</p>
+            </div>
+            <div class="info-card">
+                <h3>⚡ Premium</h3>
+                <p>• Custom Premium Tab<br>
+                   • Get Custom Premium Key<br>
+                   • Legit bypasses (no font)<br>
+                   • Cheap (350 Robux - 5$)<br></p>
+            </div>
+            <div class="info-card">
+                <h3>🔒 Security</h3>
+                <p>• Keeping Keys Safe<br>
+                   • See The IP Logs Of Who Used Your Key<br>
+                   • Anti-Share Feature (terminates keys if shared)<br></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-section" id="script">
+        <div class="code-container">
+            <div class="code-header">
+                <h3>script</h3>
+                <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+            </div>
+            <div class="code-block">loadstring(game:HttpGet("https://getsaturn.pages.dev/saturn.lua"))()</div>
+        </div>
+    </section>
+
+<script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+        canvas: document.querySelector('#background-canvas'),
+        alpha: true,
+        antialias: true
+    });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    const saturnGeometry = new THREE.SphereGeometry(10, 32, 32);
+    const saturnMaterial = new THREE.MeshBasicMaterial({
+        color: 0xa6a6a6,
+        wireframe: true
+    });
+    const saturn = new THREE.Mesh(saturnGeometry, saturnMaterial);
+    const ringGeometry = new THREE.RingGeometry(15, 25, 64);
+    const ringMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+        wireframe: true
+    });
+    const rings = new THREE.Mesh(ringGeometry, ringMaterial);
+    rings.rotation.x = Math.PI / 2;
+
+    function addStar() {
+        const geometry = new THREE.SphereGeometry(0.1, 24, 24);
+        const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const star = new THREE.Mesh(geometry, material);
+
+        const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+        star.position.set(x, y, z);
+        scene.add(star);
+    }
+    Array(200).fill().forEach(addStar);
+    const saturnGroup = new THREE.Group();
+    saturnGroup.add(saturn);
+    saturnGroup.add(rings);
+    saturnGroup.rotation.z = Math.PI / 7;
+    scene.add(saturnGroup);
+
+    camera.position.z = 50;
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        saturnGroup.rotation.y += 0.002;
+        saturnGroup.position.y = Math.sin(Date.now() * 0.001) * 2;
+        camera.position.x = Math.sin(Date.now() * 0.0005) * 5;
+        camera.position.y = Math.cos(Date.now() * 0.0005) * 5;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+</script>
+</body>
+</html>
