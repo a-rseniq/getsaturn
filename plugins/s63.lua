@@ -400,9 +400,11 @@
                 "whorebag", 
                 "whoreface",  
                 "wop"
-                ]
+            ]
         },
-        {
+
+
+          {
             "Tab": "Casual",
             "Messages": [
                 "sky hates bitch ass niggas",
@@ -687,7 +689,7 @@
         },
         {
             "Tab": "Fat Shame",
-            "Message": [
+            "Messages": [
                 "sky hates fat niggas like you",
                 "sky kidnaps fat niggas and makes them take ozempic",
                 "go take some ozempic fat ass bitch",
@@ -1222,7 +1224,7 @@
         },
         {
             "Tab": "Roleplay",
-            "Message": [
+            "Messages": [
                 "*grabs your hair from behind and starts giving backshots*",
                 "shoves a 10 inch red dragon dildo up your ass*",
                 "*slaps ass*",
