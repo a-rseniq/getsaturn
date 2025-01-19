@@ -486,7 +486,7 @@
             ]
         },
         {
-            "Tabs": "Racism",
+            "Tab": "Racism",
             "Messages": [
                 "sky 200 pumps niggers in their coconut skulls",
                 "what the fuck are you looking at jigaboo?",
@@ -671,7 +671,7 @@
             ]
         },
         {
-            "Tabs": "Fun",
+            "Tab": "Fun",
             "Messages": [
                 "would you rather get a free 20 dollars or save a cancer patients life (you should take the 20 dollars)",
                 "stephen hawking vs nick vujicic will be fighting in a boxing ring tonight",
@@ -686,7 +686,7 @@
             ]
         },
         {
-            "Tabs": "Fat Shame",
+            "Tab": "Fat Shame",
             "Message": [
                 "sky hates fat niggas like you",
                 "sky kidnaps fat niggas and makes them take ozempic",
@@ -706,7 +706,7 @@
             ]
         },
         {
-            "Tabs": "talk trash",
+            "Tab": "talk trash",
             "Messages": [
                 "nigga how are you gonna sell that game that hard pussy",
                 "even my sperm can play the game then you bum ass nigga",
@@ -992,7 +992,7 @@
             ]
         },
         {
-            "Tabs": "Sex",
+            "Tab": "Sex",
             "Messages": [
                 "drop your panties and lemme eat that pussy",
                 "suck my dick right now cumslut",
@@ -1164,7 +1164,7 @@
                 ]
         },
         {
-            "Tabs": "pedophilia",
+            "Tab": "pedophilia",
             "Messages": [
                 "i rape children like you",
                 "im a child rapist",
@@ -1221,7 +1221,7 @@
              ]
         },
         {
-            "Tabs": "Roleplay",
+            "Tab": "Roleplay",
             "Message": [
                 "*grabs your hair from behind and starts giving backshots*",
                 "shoves a 10 inch red dragon dildo up your ass*",
@@ -1266,7 +1266,7 @@
             ]
         },
         {
-            "Tabs": "Offensive",
+            "Tab": "Offensive",
             "Messages": [
                 "what do you call a five year old with no friends? a sandy hook survivor",
                 "what is a pedophiles favorite part about halloween? free delivery",
@@ -1289,7 +1289,7 @@
              ]
         },
         {
-            "Tabs": "Homophobic",
+            "Tab": "Homophobic",
             "Messages": [
                 "jnbndz despises all fags",
                 "i fucking hate faggots",
@@ -1406,7 +1406,7 @@
             ]
         },
         {
-            "Tabs": "Anti-Satan",
+            "Tab": "Anti-Satan",
             "Messages": [
                 "you really believe in satan? go kys!",
                 "are you really satanic? stick a flaming fork in yo ass and see if that helps you feel hot like hell!",
@@ -1437,7 +1437,7 @@
             ]
         },
         {
-            "Tabs": "Retards",
+            "Tab": "Retards",
             "Messages": [
                 "give an autistic kid a cyanide pill and tell him that it will cure his cancer",
                 "autistic people act retarded to get free disability checks.",
@@ -1452,7 +1452,7 @@
             ]
         },
         {
-            "Tabs": "Mobile Hate",
+            "Tab": "Mobile Hate",
             "Messages": [
                 "GET OFF YOUR SHITTY NOKIA PHONE YOU MOBILE NIGGER!!",
                 "get a fucking pc before i rape you and your entire family",
@@ -1483,7 +1483,7 @@
             ]
         },
         {
-            "Tabs": "Medicine",
+            "Tab": "Medicine",
             "Messages": [
                 "cyanide pills",
                 "fentanyl",
@@ -1522,7 +1522,7 @@
             ]
         },
         {
-            "Tabs": "Rizz",
+            "Tab": "Rizz",
             "Messages": [
                 "is your dick a cookie? cuz i wanna munch on it",
                 "if i could rearrange the alphabet, i'd put my cock in yo mouth",
@@ -1544,7 +1544,7 @@
             ]
         },   
         {
-            "Tabs": "Women",
+            "Tab": "Women",
             "Messages": [
                 "i didnt ask you to talk, i asked you to clean the dishes fucking bitch",
                 "cook and clean bitch!",
@@ -1570,7 +1570,7 @@
             ]
         },   
         {
-            "Tabs": "websites",
+            "Tab": "websites",
             "Messages": [
                 "what's your discord?",
                 "MOMMY GIVE ME YOUR DISCORD PLS",
@@ -1631,7 +1631,7 @@
             ]
         },   
         {
-            "Tabs": "Nazi",
+            "Tab": "Nazi",
             "Messages": [
                 "kill all fat ugly jews",
                 "join me in gas jews simulator",
@@ -1664,7 +1664,7 @@
             ]
         },   
         {
-            "Tabs": "Troll",
+            "Tab": "Troll",
             "Messages": [
                 "VISIT GRANNYRAPESYOU.COM AND SIGN UP TO SEE GRANNIES SUCK BIG DICK",
                 "skibidi toilet raping children at hentai.com",
@@ -1722,7 +1722,7 @@
             ]
         },   
         {
-            "Tabs": "Extras",
+            "Tab": "Extras",
             "Messages": [
                 "SKY IS SO FUCKING AWESOME",
                 "SATURNBYPASSER IS SO FUCKING AWESOME",
