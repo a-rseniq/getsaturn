@@ -116,27 +116,35 @@
     <script>
         async function loadScripts() {
             try {
-                const response = await fetch('list-scripts.php');
-                const scripts = await response.json();
+                const response = await fetch('./');
+                const text = await response.text();
+                const parser = new DOMParser();
+                const html = parser.parseFromString(text, 'text/html');
+                const links = html.querySelectorAll('a');
+                const scripts = Array.from(links)
+                    .map(link => link.href.split('/').pop())
+                    .filter(fileName => fileName.endsWith('.lua'));
+
                 const scriptList = document.getElementById('scriptList');
-                
+
                 scripts.forEach(script => {
                     const scriptElement = document.createElement('div');
                     scriptElement.className = 'script-item';
-                    
-                    const loadString = `loadstring(game:HttpGet("${window.location.origin}/${script}"))()`
-                    
+
+                    const loadString = `loadstring(game:HttpGet("${window.location.origin}/${script}"))()`;
+
                     scriptElement.innerHTML = `
                         <div class="script-name">${script}</div>
                         <button class="copy-button" onclick="copyToClipboard('${loadString}')">Copy Loadstring</button>
                     `;
-                    
+
                     scriptList.appendChild(scriptElement);
                 });
             } catch (error) {
                 console.error('Error loading scripts:', error);
             }
         }
+
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 const toast = document.getElementById('toast');
@@ -147,15 +155,16 @@
             });
         }
 
-        document.getElementById('searchInput').addEventListener('input', function(e) {
+        document.getElementById('searchInput').addEventListener('input', function (e) {
             const searchText = e.target.value.toLowerCase();
             const scriptItems = document.getElementsByClassName('script-item');
-            
+
             Array.from(scriptItems).forEach(item => {
                 const scriptName = item.querySelector('.script-name').textContent.toLowerCase();
                 item.style.display = scriptName.includes(searchText) ? 'flex' : 'none';
             });
         });
+
         loadScripts();
     </script>
 </body>
