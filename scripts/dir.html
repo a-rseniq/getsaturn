@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saturn Scripts - Explorer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #0f0f0f;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #8a2be2;
+        }
+
+        .header h1 {
+            color: #8a2be2;
+            margin: 0;
+        }
+
+        .search-box {
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid #8a2be2;
+            background: #1a1a1a;
+            color: white;
+            width: 300px;
+            outline: none;
+        }
+
+        .script-list {
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .script-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #2a2a2a;
+            transition: background-color 0.3s;
+        }
+
+        .script-item:hover {
+            background-color: #2a2a2a;
+        }
+
+        .script-name {
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .copy-button {
+            padding: 8px 15px;
+            background: #8a2be2;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .copy-button:hover {
+            background: #9d3af0;
+            transform: scale(1.05);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #8a2be2;
+            color: white;
+            border-radius: 5px;
+            display: none;
+            animation: fadeIn 0.3s, fadeOut 0.3s 1.7s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Saturn Scripts Explorer</h1>
+            <input type="text" class="search-box" placeholder="Search scripts..." id="searchInput">
+        </div>
+        <div class="script-list" id="scriptList">
+        </div>
+    </div>
+    <div class="toast" id="toast">copied to clipboard</div>
+
+    <script>
+        async function loadScripts() {
+            try {
+                const response = await fetch('list-scripts.php');
+                const scripts = await response.json();
+                const scriptList = document.getElementById('scriptList');
+                
+                scripts.forEach(script => {
+                    const scriptElement = document.createElement('div');
+                    scriptElement.className = 'script-item';
+                    
+                    const loadString = `loadstring(game:HttpGet("${window.location.origin}/${script}"))()`
+                    
+                    scriptElement.innerHTML = `
+                        <div class="script-name">${script}</div>
+                        <button class="copy-button" onclick="copyToClipboard('${loadString}')">Copy Loadstring</button>
+                    `;
+                    
+                    scriptList.appendChild(scriptElement);
+                });
+            } catch (error) {
+                console.error('Error loading scripts:', error);
+            }
+        }
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchText = e.target.value.toLowerCase();
+            const scriptItems = document.getElementsByClassName('script-item');
+            
+            Array.from(scriptItems).forEach(item => {
+                const scriptName = item.querySelector('.script-name').textContent.toLowerCase();
+                item.style.display = scriptName.includes(searchText) ? 'flex' : 'none';
+            });
+        });
+        loadScripts();
+    </script>
+</body>
+</html>
