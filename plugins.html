@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaturnBypasser Plugin Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(64, 64, 64, 0.03) 0%, transparent 50%), 
+                        radial-gradient(circle at 80% 20%, rgba(96, 96, 96, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(48, 48, 48, 0.03) 0%, transparent 50%);
+            animation: bgMove 20s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            33% { transform: translateX(-20px) translateY(20px); }
+            66% { transform: translateX(20px) translateY(-20px); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            gap: 60px;
+        }
+
+        .nav a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #ffffff;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 140px 40px 60px;
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px));
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            font-weight: 300;
+            color: #9ca3af;
+            text-align: center;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .plugin-info {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            margin-bottom: 40px;
+            font-size: 14px;
+            color: #d1d5db;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .plugin-info strong {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 35px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #e5e7eb;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 18px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+            appearance: none;
+        }
+
+        select option {
+            background: #0a0a0a;
+            color: #ffffff;
+            padding: 15px;
+            border: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Sentences Container */
+        .sentences-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            margin-bottom: 25px;
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+        }
+
+        .sentence-input {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .sentence-input:last-child {
+            margin-bottom: 0;
+        }
+
+        .sentence-input input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .remove-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+
+        .remove-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .add-sentence-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-family: inherit;
+            letter-spacing: 1px;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+        }
+
+        .add-sentence-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 20px 40px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            font-family: inherit;
+            letter-spacing: 1px;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .submit-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px;
+            max-width: 500px;
+            width: 90%;
+            clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        .spinner.success {
+            border: 3px solid #ffffff;
+            animation: none;
+        }
+
+        .spinner.error {
+            border: 3px solid #ffffff;
+            animation: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            margin: 0 auto 30px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .status-icon.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .status-icon.success {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+
+        .status-icon.error {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+
+        .loading-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .result-info {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            margin-top: 30px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            color: #d1d5db;
+            max-height: 250px;
+            overflow-y: auto;
+            text-align: left;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .result-info h3 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .result-info p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .result-info strong {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            letter-spacing: 1px;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            
+            .header-content {
+                padding: 0 20px;
+            }
+            
+            .main-container {
+                padding: 120px 20px 40px;
+            }
+            
+            .container {
+                padding: 40px 30px;
+            }
+            
+            .title {
+                font-size: clamp(24px, 6vw, 36px);
+            }
+            
+            .sentence-input {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .sentence-input input {
+                width: 100%;
+            }
+            
+            .remove-btn {
+                width: 100%;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 100px 15px 30px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .plugin-info {
+                padding: 20px;
+            }
+            
+            .loading-content {
+                padding: 40px 30px;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scaleX(0);
+            transform-origin: left;
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">SATURNBYPASSER</div>
+            <nav class="nav">
+                <a href="#main">GENERATOR</a>
+                <a href="index.html">HOME</a>
+                <a href="#connect">CONNECT</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container" id="main">
+        <div class="container">
+            <h1 class="title">PLUGIN GENERATOR</h1>
+            <p class="subtitle">Create custom plugins for SaturnBypasser</p>
+            
+            <div class="plugin-info">
+                <strong>ℹ️ NOTICE:</strong> Only latin characters and numbers are allowed. Special characters will be rejected by the system.
+            </div>
+
+            <form id="pluginForm">
+                <div class="form-group">
+                    <label for="title">PLUGIN TITLE</label>
+                    <input type="text" id="title" name="title" placeholder="Enter plugin title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="icon">ICON</label>
+                    <select id="icon" name="icon" required>
+                        <option value="">Select an icon</option>
+                        <option value="star">⭐ Star</option>
+                        <option value="user-circle">👤 User Circle</option>
+                        <option value="blocks">🧱 Blocks</option>
+                        <option value="apple">🍎 Apple</option>
+                        <option value="cat">🐱 Cat</option>
+                        <option value="ban">🚫 Ban</option>
+                        <option value="bolt">⚡ Bolt</option>
+                        <option value="banana">🍌 Banana</option>
+                        <option value="bean">🫘 Bean</option>
+                        <option value="barcode">📊 Barcode</option>
+                        <option value="atom">⚛️ Atom</option>
+                        <option value="award">🏆 Award</option>
+                        <option value="check">✅ Check</option>
+                        <option value="citrus">🍊 Citrus</option>
+                        <option value="copyleft">🄯 Copyleft</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="creator">CREATOR NAME</label>
+                    <input type="text" id="creator" name="creator" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>SENTENCES</label>
+                    <div class="sentences-container">
+                        <div id="sentencesContainer">
+                            <div class="sentence-input">
+                                <input type="text" placeholder="Enter a sentence" required>
+                                <button type="button" class="remove-btn" onclick="removeSentence(this)" title="Remove sentence">×</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-sentence-btn" onclick="addSentence()">
+                            <span>+</span> ADD SENTENCE
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    GENERATE PLUGIN
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner" id="spinner"></div>
+            <div class="status-icon" id="statusIcon"></div>
+            <div class="loading-text" id="loadingText">GENERATING PLUGIN...</div>
+            <div class="result-info" id="resultInfo" style="display: none;"></div>
+            <button class="close-btn" id="closeBtn" onclick="closeOverlay()" style="display: none;">CLOSE</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://api.getsaturn.workers.dev';
+
+        function addSentence() {
+            const container = document.getElementById('sentencesContainer');
+            const newSentence = document.createElement('div');
+            newSentence.className = 'sentence-input';
+            newSentence.innerHTML = `
+                <input type="text" placeholder="Enter a sentence" required>
+                <button type="button" class="remove-btn" onclick="removeSentence(this)" title="Remove sentence">×</button>
+            `;
+            container.appendChild(newSentence);
+        }
+
+        function removeSentence(button) {
+            const container = document.getElementById('sentencesContainer');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
+            } else {
+                alert('You must have at least one sentence!');
+            }
+        }
+
+        function showLoadingOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('active');
+        }
+
+        function closeOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.remove('active');
+            
+            // Reset overlay state
+            setTimeout(() => {
+                document.getElementById('spinner').className = 'spinner';
+                document.getElementById('statusIcon').className = 'status-icon';
+                document.getElementById('loadingText').textContent = 'GENERATING PLUGIN...';
+                document.getElementById('resultInfo').style.display = 'none';
+                document.getElementById('closeBtn').style.display = 'none';
+            }, 300);
+        }
+
+        function showSuccess(pluginId) {
+            const spinner = document.getElementById('spinner');
+            const statusIcon = document.getElementById('statusIcon');
+            const loadingText = document.getElementById('loadingText');
+            const resultInfo = document.getElementById('resultInfo');
+            const closeBtn = document.getElementById('closeBtn');
+
+            spinner.style.opacity = '0';
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                statusIcon.className = 'status-icon success show';
+                statusIcon.textContent = '✓';
+                loadingText.textContent = 'PLUGIN GENERATED SUCCESSFULLY!';
+                
+                resultInfo.innerHTML = `
+                    <h3>PLUGIN CREATED SUCCESSFULLY</h3>
+                    <p><strong>PLUGIN ID:</strong> ${pluginId}</p>
+                    <p><strong>STATUS:</strong> Active</p>
+                    <p><strong>CREATED:</strong> ${new Date().toLocaleString()}</p>
+                `;
+                resultInfo.style.display = 'block';
+                closeBtn.style.display = 'block';
+            }, 500);
+        }
+
+        function showError(errorMessage) {
+            const spinner = document.getElementById('spinner');
+            const statusIcon = document.getElementById('statusIcon');
+            const loadingText = document.getElementById('loadingText');
+            const resultInfo = document.getElementById('resultInfo');
+            const closeBtn = document.getElementById('closeBtn');
+
+            spinner.style.opacity = '0';
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                statusIcon.className = 'status-icon error show';
+                statusIcon.textContent = '✗';
+                loadingText.textContent = 'PLUGIN GENERATION FAILED!';
+                
+                resultInfo.innerHTML = `
+                    <h3>ERROR</h3>
+                    <p><strong>MESSAGE:</strong> ${errorMessage}</p>
+                    <p><strong>TIME:</strong> ${new Date().toLocaleString()}</p>
+                `;
+                resultInfo.style.display = 'block';
+                closeBtn.style.display = 'block';
+            }, 500);
+        }
+
+        document.getElementById('pluginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Get form data
+            const title = document.getElementById('title').value.trim();
+            const icon = document.getElementById('icon').value;
+            const creator = document.getElementById('creator').value.trim();
+            
+            // Get all sentences
+            const sentenceInputs = document.querySelectorAll('.sentence-input input');
+            const sentences = Array.from(sentenceInputs)
+                .map(input => input.value.trim())
+                .filter(sentence => sentence.length > 0);
+            
+            if (sentences.length === 0) {
+                alert('Please enter at least one sentence!');
+                return;
+            }
+            
+            // Combine sentences into one string
+            const combinedSentences = sentences.join(' ');
+            
+            // Show loading overlay
+            showLoadingOverlay();
+            submitBtn.disabled = true;
+            
+            try {
+                // Wait for 3 seconds to show loading animation
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                const response = await fetch(`${API_URL}/plugins/submit`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title,
+                        icon,
+                        creator,
+                        sentences: combinedSentences
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showSuccess(data.pluginId);
+                    document.getElementById('pluginForm').reset();
+                    
+                    // Reset to one sentence input
+                    const container = document.getElementById('sentencesContainer');
+                    container.innerHTML = `
+                        <div class="sentence-input">
+                            <input type="text" placeholder="Enter a sentence" required>
+                            <button type="button" class="remove-btn" onclick="removeSentence(this)" title="Remove sentence">×</button>
+                        </div>
+                    `;
+                } else {
+                    showError(data.error || 'Unknown error occurred');
+                }
+                
+            } catch (error) {
+                showError(`Network error: ${error.message}`);
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Scroll progress indicator
+        function updateScrollProgress() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            scrollIndicator.style.transform = `scaleX(${progress / 100})`;
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Header background opacity on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const scrolled = window.pageYOffset;
+            const opacity = Math.min(scrolled / 100, 1);
+            header.style.background = `rgba(10, 10, 10, ${0.8 + opacity * 0.2})
