@@ -508,7 +508,7 @@
             const icon = document.getElementById('icon').value;
             const creator = document.getElementById('creator').value.trim();
             
-            // Get all sentences
+            // Get all sentences as separate array items
             const sentenceInputs = document.querySelectorAll('.sentence-input input');
             const sentences = Array.from(sentenceInputs)
                 .map(input => input.value.trim())
@@ -518,9 +518,6 @@
                 alert('Please enter at least one sentence!');
                 return;
             }
-            
-            // Combine sentences into one string
-            const combinedSentences = sentences.join(' ');
             
             // Show loading overlay
             showLoadingOverlay();
@@ -539,7 +536,7 @@
                         title,
                         icon,
                         creator,
-                        sentences: combinedSentences
+                        sentences: sentences // Send as array instead of combined string
                     })
                 });
                 
