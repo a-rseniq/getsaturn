@@ -3,319 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaturnBypasser | v1.2</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>Plugin Generator</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
         }
 
         body {
-            background-color: #0a0a0a;
-            color: #ffffff;
-            overflow-x: hidden;
-            perspective: 1000px;
-        }
-
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: -1;
-        }
-
-        .navbar {
-            padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-        }
-
-        .navbar ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-
-        .navbar a:hover {
-            color: #a365ff;
-        }
-
-        .hero {
-            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 2rem;
+            padding: 20px;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ea00ff, #ff00aa);
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background-clip: text;
         }
 
-        .preview-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+        .form-group {
+            margin-bottom: 25px;
         }
 
-        .preview-card {
-            position: relative;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .preview-card:hover {
-            transform: rotateX(10deg) rotateY(10deg);
-        }
-
-        .preview-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        input[type="text"], textarea {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(163, 101, 255, 0.2), transparent);
-            transform: translateZ(20px);
-            z-index: 1;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
         }
 
-        .preview-card img {
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .sentences-container {
+            border: 2px dashed #e1e8ed;
+            border-radius: 12px;
+            padding: 20px;
+            background: #f8f9fa;
+            margin-bottom: 20px;
+        }
+
+        .sentence-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .sentence-input:last-child {
+            margin-bottom: 0;
+        }
+
+        .sentence-input input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .remove-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-btn:hover {
+            background: #ff3742;
+            transform: scale(1.1);
+        }
+
+        .add-sentence-btn {
+            background: linear-gradient(135deg, #2ed573, #1dd1a1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .add-sentence-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 213, 115, 0.3);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
+            transition: all 0.3s ease;
+            margin-top: 20px;
         }
 
-        .preview-card .content {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            transform: translateZ(30px);
-            z-index: 2;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 1rem;
-            border-radius: 10px;
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
-        .preview-card h3 {
-            color: #fff;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .preview-card p {
-            color: rgba(255, 255, 255, 0.8);
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 500;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
         }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            transition: transform 0.3s;
-            border: 1px solid rgba(163, 101, 255, 0.3);
-            backdrop-filter: blur(10px);
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: #a365ff;
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
-        .script-section {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 800px;
-            margin: 2rem auto;
-            border: 1px solid rgba(163, 101, 255, 0.3);
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .script-code {
-            background: #1a1a1a;
-            padding: 1rem;
-            border-radius: 10px;
-            overflow-x: auto;
-            color: #a365ff;
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
         }
 
-        .section {
-            padding: 5rem 2rem;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .preview-cards {
-                grid-template-columns: 1fr;
-            }
+        .plugin-info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1565c0;
         }
     </style>
 </head>
 <body>
-    <div id="canvas-container"></div>
-    
-    <nav class="navbar">
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#Features">Features</a></li>
-            <li><a href="#script">Script</a></li>
-        </ul>
-    </nav>
-
-    <section id="home" class="hero">
-        <h1>SaturnBypasser v1.2</h1>
-        <p>The #1 Roblox Chat Bypasser</p>
-        <p>Including 270+ Bypasses</p>
-    </section>
-
-    <section id="Features" class="section">
-        <div class="preview-cards">
-            <div class="preview-card">
-                <img src="ui.png" alt="ui">
-                <div class="content">
-                    <h3>Script UI</h3>
-                    <p>Easy to use UI.</p>
-                </div>
-            </div>
-            <div class="preview-card">
-                <img src="byp.png" alt="byp">
-                <div class="content">
-                    <h3>270+ Bypasses</h3>
-                    <p>Over 200 FREE Bypasses!</p>
-                </div>
-            </div>
-            <div class="preview-card">
-                <img src="serv.png" alt="serv">
-                <div class="content">
-                    <h3>discord.gg/chatbypasser</h3>
-                    <p>Best community!</p>
-                </div>
-            </div>
+    <div class="container">
+        <h1>🔌 Plugin Generator</h1>
+        
+        <div class="plugin-info">
+            <strong>ℹ️ Note:</strong> Only latin characters and numbers are allowed. Special characters will be rejected.
         </div>
-    </section>
 
-    <section id="script" class="section">
-        <div class="script-section">
-            <h2>Script</h2>
-            <pre class="script-code">
-loadstring(game:HttpGet("https://getsaturn.pages.dev/saturn.lua"))()
-            </pre>
-        </div>
-    </section>
+        <form id="pluginForm">
+            <div class="form-group">
+                <label for="title">Plugin Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter plugin title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="icon">Icon</label>
+                <input type="text" id="icon" name="icon" placeholder="Enter icon name or emoji" required>
+            </div>
+
+            <div class="form-group">
+                <label for="creator">Creator Name</label>
+                <input type="text" id="creator" name="creator" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Sentences</label>
+                <div class="sentences-container">
+                    <div id="sentencesContainer">
+                        <div class="sentence-input">
+                            <input type="text" placeholder="Enter a sentence" required>
+                            <button type="button" class="remove-btn" onclick="removeSentence(this)" title="Remove sentence">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-sentence-btn" onclick="addSentence()">
+                        <span>+</span> Add Another Sentence
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Generate Plugin
+            </button>
+        </form>
+
+        <div id="result"></div>
+    </div>
 
     <script>
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
-        const saturnGeometry = new THREE.SphereGeometry(3, 32, 32);
-        const saturnMaterial = new THREE.MeshBasicMaterial({
-            color: 0x887294,
-            wireframe: true,
-        });
-        const saturn = new THREE.Mesh(saturnGeometry, saturnMaterial);
-        const ringGeometry = new THREE.RingGeometry(4, 7, 64);
-        const ringMaterial = new THREE.MeshBasicMaterial({
-            color: 0x86788e,
-            wireframe: true,
-            side: THREE.DoubleSide
-        });
-        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-        ring.rotation.x = Math.PI / 2;
-        saturn.add(ring);
-        const innerRingGeometry = new THREE.RingGeometry(3.5, 6.5, 64);
-        const innerRingMaterial = new THREE.MeshBasicMaterial({
-            color: 0x5d0090,
-            wireframe: true,
-            side: THREE.DoubleSide,
-            transparent: true,
-            opacity: 0.5
-        });
-        const innerRing = new THREE.Mesh(innerRingGeometry, innerRingMaterial);
-        innerRing.rotation.x = Math.PI / 2;
-        saturn.add(innerRing);
-        scene.add(saturn);
-        const starsGeometry = new THREE.BufferGeometry();
-        const starsMaterial = new THREE.PointsMaterial({
-            color: 0xffffff,
-            size: 0.02
-        });
+        const API_URL = 'https://api.getsaturn.workers.dev';
 
-        const starsVertices = [];
-        for(let i = 0; i < 10000; i++) {
-            const x = (Math.random() - 0.5) * 2000;
-            const y = (Math.random() - 0.5) * 2000;
-            const z = (Math.random() - 0.5) * 2000;
-            starsVertices.push(x, y, z);
+        function addSentence() {
+            const container = document.getElementById('sentencesContainer');
+            const newSentence = document.createElement('div');
+            newSentence.className = 'sentence-input';
+            newSentence.innerHTML = `
+                <input type="text" placeholder="Enter a sentence" required>
+                <button type="button" class="remove-btn" onclick="removeSentence(this)" title="Remove sentence">×</button>
+            `;
+            container.appendChild(newSentence);
         }
 
-        starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
-        const stars = new THREE.Points(starsGeometry, starsMaterial);
-        scene.add(stars);
-
-        camera.position.z = 10;
-        function animate() {
-            requestAnimationFrame(animate);
-            saturn.rotation.y += 0.005;
-            ring.rotation.z += 0.002;
-            innerRing.rotation.z -= 0.001;
-            stars.rotation.y += 0.0002;
-            renderer.render(scene, camera);
+        function removeSentence(button) {
+            const container = document.getElementById('sentencesContainer');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
+            } else {
+                alert('You must have at least one sentence!');
+            }
         }
 
-        animate();
-        document.addEventListener('mousemove', (event) => {
-            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const mouseY = (event.clientY / window.innerHeight) * 2 - 1;
+        document.getElementById('pluginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            saturn.rotation.y = mouseX * 0.5;
-            saturn.rotation.x = mouseY * 0.5;
+            const submitBtn = document.getElementById('submitBtn');
+            const result = document.getElementById('result');
+            
+            // Get form data
+            const title = document.getElementById('title').value.trim();
+            const icon = document.getElementById('icon').value.trim();
+            const creator = document.getElementById('creator').value.trim();
+            
+            // Get all sentences
+            const sentenceInputs = document.querySelectorAll('.sentence-input input');
+            const sentences = Array.from(sentenceInputs)
+                .map(input => input.value.trim())
+                .filter(sentence => sentence.length > 0);
+            
+            if (sentences.length === 0) {
+                showResult('Please enter at least one sentence!', 'error');
+                return;
+            }
+            
+            // Combine sentences into one string
+            const combinedSentences = sentences.join(' ');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Generating...';
+            result.innerHTML = '';
+            
+            try {
+                const response = await fetch(`${API_URL}/plugins/submit`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title,
+                        icon,
+                        creator,
+                        sentences: combinedSentences
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ Plugin created successfully! ID: ${data.pluginId}`, 'success');
+                    document.getElementById('pluginForm').reset();
+                    
+                    // Reset to one sentence input
+                    const container = document.getElementById('sentencesContainer');
+                    container.innerHTML = `
+                        <div class="sentence-input">
+                            <input type="text" placeholder="Enter a sentence" required>
+                            <button type="button" class="remove-btn" onclick="removeSentence(this)" title="Remove sentence">×</button>
+                        </div>
+                    `;
+                } else {
+                    showResult(`❌ Error: ${data.error}`, 'error');
+                }
+                
+            } catch (error) {
+                showResult(`❌ Network error: ${error.message}`, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Generate Plugin';
+            }
         });
 
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+        function showResult(message, type) {
+            const result = document.getElementById('result');
+            result.innerHTML = message;
+            result.className = `result ${type}`;
+        }
     </script>
 </body>
 </html>
