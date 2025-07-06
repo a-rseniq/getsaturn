@@ -6,7 +6,7 @@
 		╚════██║██╔══██║   ██║   ██║   ██║██╔══██╗██║╚██╗██║
 		███████║██║  ██║   ██║   ╚██████╔╝██║  ██║██║ ╚████║
 		╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
-		 Rayfield Saturn | Version 0.0.2 | By neo / node.sh
+		 Rayfield Saturn | Version 0.0.3 | By neo / node.sh
 ]]
 
 if debugX then
@@ -261,11 +261,11 @@ local promptUser = math.random(1,6)
 
 if promptUser == 1 and prompt and type(prompt.create) == "function" then
 	prompt.create(
-		'Be cautious when running scripts',
-	    [[Please be careful when running scripts from unknown developers. This script has already been ran.
+		'<font color="#a259ff"><b>SaturnBypasser</b></font>',
+	    [[<font color="#ffffff">You have already run this script.</font>
 
-<font transparency='0.3'>Some scripts may steal your items or in-game goods.</font>]],
-		'Okay',
+<font color="#bbbbbb">Running SaturnBypasser more than once may affect your experience.</font>]],
+		'Calm',
 		'',
 		function()
 
