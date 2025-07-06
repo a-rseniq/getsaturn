@@ -261,10 +261,10 @@ local promptUser = math.random(1,6)
 
 if promptUser == 1 and prompt and type(prompt.create) == "function" then
 	prompt.create(
-		'<font color="#a259ff"><b>SaturnBypasser</b></font>',
+		'SaturnBypasser',
 	    [[<font color="#ffffff">You have already run this script.</font>
 
-<font color="#bbbbbb">Running SaturnBypasser more than once may affect your experience.</font>]],
+<font color="#bbbbbb">Running SaturnBypasser more than <font color="#8b0000">once</font> may affect your experience.</font>]],
 		'Calm',
 		'',
 		function()
