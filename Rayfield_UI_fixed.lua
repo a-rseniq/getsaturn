@@ -1697,7 +1697,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				RayfieldLibrary:Notify({
 					Title = "SaturnBypasser",
 					Content = "Loving the SaturnBypasser experience? \n\nGreat! Join the Discord at discord.gg/qv8RKNVm3S",
-					Duration = 10,
+					Duration = 30,
 					Image = 4370033185,
 				})
 			end
