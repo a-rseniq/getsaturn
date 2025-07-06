@@ -6,7 +6,7 @@
 		╚════██║██╔══██║   ██║   ██║   ██║██╔══██╗██║╚██╗██║
 		███████║██║  ██║   ██║   ╚██████╔╝██║  ██║██║ ╚████║
 		╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
-		 Rayfield Saturn | Version 0.0.2 | By neo / node.sh
+		 Rayfield Saturn | Version 0.0.3 | By neo / node.sh
 ]]
 
 if debugX then
@@ -1642,7 +1642,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 	LoadingFrame.Subtitle.Text = Settings.LoadingSubtitle or "Interface Suite"
 
 	if Settings.LoadingTitle ~= "Rayfield Interface Suite" then
-		LoadingFrame.Version.Text = "Rayfield UI"
+		LoadingFrame.Version.Text = "Rayfield <font color="#a259ff">Saturn</font>"
 	end
 
 	if Settings.Icon and Settings.Icon ~= 0 and Topbar:FindFirstChild('Icon') then
