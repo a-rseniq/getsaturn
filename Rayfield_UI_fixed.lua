@@ -6,7 +6,7 @@
 		╚════██║██╔══██║   ██║   ██║   ██║██╔══██╗██║╚██╗██║
 		███████║██║  ██║   ██║   ╚██████╔╝██║  ██║██║ ╚████║
 		╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
-		 Rayfield Saturn | Version 0.0.3 | By neo / node.sh
+		 Rayfield Saturn | Version 0.0.1 | By neo / node.sh
 ]]
 
 if debugX then
@@ -261,11 +261,11 @@ local promptUser = math.random(1,6)
 
 if promptUser == 1 and prompt and type(prompt.create) == "function" then
 	prompt.create(
-		'Saturn Bypasser',
-	    [[This script has already been ran.
+		'Be cautious when running scripts',
+	    [[Please be careful when running scripts from unknown developers. This script has already been ran.
 
-<font transparency='0.3'>Running this more than once may affect your experience.</font>]],
-		'Calm',
+<font transparency='0.3'>Some scripts may steal your items or in-game goods.</font>]],
+		'Okay',
 		'',
 		function()
 
@@ -1642,7 +1642,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 	LoadingFrame.Subtitle.Text = Settings.LoadingSubtitle or "Interface Suite"
 
 	if Settings.LoadingTitle ~= "Rayfield Interface Suite" then
-		LoadingFrame.Version.Text = "Rayfield <font color="#a259ff">Saturn</font>"
+		LoadingFrame.Version.Text = "Rayfield UI"
 	end
 
 	if Settings.Icon and Settings.Icon ~= 0 and Topbar:FindFirstChild('Icon') then
