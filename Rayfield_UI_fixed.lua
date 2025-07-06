@@ -6,7 +6,7 @@
 		╚════██║██╔══██║   ██║   ██║   ██║██╔══██╗██║╚██╗██║
 		███████║██║  ██║   ██║   ╚██████╔╝██║  ██║██║ ╚████║
 		╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
-		 Rayfield Saturn | Version 0.0.3 | By neo / node.sh
+		 Rayfield Saturn | Version 0.0.4 | By neo / node.sh
 ]]
 
 if debugX then
@@ -668,7 +668,7 @@ local CoreGui = getService("CoreGui")
 
 -- Interface Management
 
-local Rayfield = useStudio and script.Parent:FindFirstChild('Rayfield') or game:GetObjects("rbxassetid://114919982799171")[1]
+local Rayfield = useStudio and script.Parent:FindFirstChild('Rayfield') or game:GetObjects("rbxassetid://118005254968972")[1]
 local buildAttempts = 0
 local correctBuild = false
 local warned
@@ -689,7 +689,7 @@ repeat
 		warned = true
 	end
 
-	toDestroy, Rayfield = Rayfield, useStudio and script.Parent:FindFirstChild('Rayfield') or game:GetObjects("rbxassetid://114919982799171")[1]
+	toDestroy, Rayfield = Rayfield, useStudio and script.Parent:FindFirstChild('Rayfield') or game:GetObjects("rbxassetid://118005254968972")[1]
 	if toDestroy and not useStudio then toDestroy:Destroy() end
 
 	buildAttempts = buildAttempts + 1
