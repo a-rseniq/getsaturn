@@ -6,7 +6,7 @@
 		╚════██║██╔══██║   ██║   ██║   ██║██╔══██╗██║╚██╗██║
 		███████║██║  ██║   ██║   ╚██████╔╝██║  ██║██║ ╚████║
 		╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
-		 Rayfield Saturn | Version 0.0.4 | By neo / node.sh
+		 Rayfield Saturn | Version 0.0.5 | By neo / node.sh
 ]]
 
 if debugX then
@@ -262,7 +262,7 @@ local promptUser = math.random(1,6)
 if promptUser == 1 and prompt and type(prompt.create) == "function" then
 	prompt.create(
 		'SaturnBypasser',
-	    [[<font color="#ffffff">You have already run this script.</font>
+	    [[<font color="#ffffff">You have already ran this script.</font>
 
 <font color="#bbbbbb">Running SaturnBypasser more than <font color="#8b0000">once</font> may affect your experience.</font>]],
 		'Calm',
@@ -1039,6 +1039,8 @@ function RayfieldLibrary:Notify(data) -- action e.g open messages
 		-- Set Data
 		newNotification.Title.Text = data.Title or "Unknown Title"
 		newNotification.Description.Text = data.Content or "Unknown Content"
+		newNotification.Title.RichText = true
+		newNotification.Description.RichText = true
 
 		if data.Image then
 			if typeof(data.Image) == 'string' and Icons then
