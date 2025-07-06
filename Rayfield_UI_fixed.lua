@@ -1688,14 +1688,14 @@ function RayfieldLibrary:CreateWindow(Settings)
 	Elements.Visible = false
 	LoadingFrame.Visible = true
 
-	if not Settings.DisableRayfieldPrompts then
+	if not Settings.DisableSaturnDiscord then
 		task.spawn(function()
 			while true do
 				task.wait(math.random(180, 600))
 				RayfieldLibrary:Notify({
-					Title = "Rayfield Interface",
-					Content = "Enjoying this UI library? Find it at sirius.menu/discord",
-					Duration = 7,
+					Title = "SaturnBypasser",
+					Content = "Loving the SaturnBypasser experience? \n\nGreat! Join the Discord at discord.gg/qv8RKNVm3S",
+					Duration = 10,
 					Image = 4370033185,
 				})
 			end
