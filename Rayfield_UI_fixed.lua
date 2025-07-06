@@ -2446,6 +2446,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end
 
 			local Section = Elements.Template.SectionTitle:Clone()
+			Section.Title.RichText = true
 			Section.Title.Text = SectionName
 			Section.Visible = true
 			Section.Parent = TabPage
